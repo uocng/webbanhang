@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .login {
+        border: 1px solid black;
+        width: 400px;
+        height: 500px;
+        background: url("./ivy/ivy project/images/background login.jpg");
+        color: white;
+        border-radius: 20px;
+        background-position: center;
+        overflow: hidden;
+      }
+      form {
+        display: block;
+        box-sizing: border-box;
+        padding: 40px;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: brightness(70%);
+        flex-direction: column;
+        display: flex;
+        gap: 5px;
+      }
+      h1 {
+        font-weight: normal;
+        font-size: 24px;
+        text-shadow: 0px 0px 2px rgba(0, 0, 0, 5);
+        margin-bottom: 60px;
+      }
+      label {
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 2px;
+        padding-left: 10px;
+      }
+      input {
+        background: rgba(255, 255, 255, 0.3);
+        height: 40px;
+        line-height: 40px;
+        border-radius: 20px;
+        padding: 0px 20px;
+        border: none;
+        margin-bottom: 20px;
+        color: white;
+      }
+      button {
+        background: rgb(45, 126, 231);
+        height: 40px;
+        line-height: 40px;
+        border-radius: 40px;
+        border: none;
+        margin: 10px 0px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 3);
+        transition: transform 0.4s ease-in-out;
+        color: white;
+      }
+      button:hover {
+        color: #1b1f1e;
+        transform: scale(0.9);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login">
+      <form id="loginForm">
+        <h1>LOGIN</h1>
+        <label>UserName</label>
+        <input type="text" id="username" />
+        <label>PassWord</label>
+        <input type="password" id="password" />
+        <button>submit</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Get form inputs
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          // Validate inputs
+          if (!username.trim() || !password.trim()) {
+            alert("Please enter username and password");
+            return;
+          }
+
+          // Check if user exists in local storage
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const user = users.find(
+            (user) => user.username === username && user.password === password
+          );
+          if (!user) {
+            alert("Invalid username or password");
+            return;
+          }
+
+          // Store logged-in user in session storage
+          sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+
+          // Redirect to home page or any other page after successful login
+          window.location.href = "home.html";
+        });
+    </script>
+  </body>
+</html>

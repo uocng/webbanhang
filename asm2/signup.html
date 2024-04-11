@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <style>
+      .registration {
+        width: 100%;
+        max-width: 400px; /* Giới hạn chiều rộng của form */
+        margin: 0 auto; /* Căn giữa form */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .registration h1 {
+        text-align: center;
+        margin-bottom: 20 px;
+      }
+
+      .registration label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .registration input[type="text"],
+      .registration input[type="email"],
+      .registration input[type="password"],
+      .registration button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .registration button {
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .registration button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="registration">
+      <form id="registrationForm">
+        <h1>Registration</h1>
+        <label>Username</label>
+        <input type="text" id="username" />
+        <label>Email</label>
+        <input type="email" id="email" />
+        <label>Password</label>
+        <input type="password" id="password" />
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Get form inputs
+          const username = document.getElementById("username").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          // Validate inputs
+          if (
+            !username.trim() ||
+            !email.trim() ||
+            !password.trim() ||
+            !confirmPassword.trim()
+          ) {
+            alert("All fields are required");
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+          }
+
+          // Check if user with the same email already exists
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const existingUser = users.find((user) => user.email === email);
+          if (existingUser) {
+            alert("User with this email already exists");
+            return;
+          }
+
+          // Create user object
+          const newUser = {
+            username: username,
+            email: email,
+            password: password,
+          };
+
+          // Save user to local storage
+          users.push(newUser);
+          localStorage.setItem("users", JSON.stringify(users));
+
+          // Redirect to login page
+          window.location.href = "index.html";
+        });
+    </script>
+  </body>
+</html>

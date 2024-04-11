@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building materials</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      .name {
+        z-index: 100000;
+        margin-right: 5%;
+        font-size: 24px;
+
+        color: rgb(193, 192, 192);
+        transition: transform 0.2s ease-in-out; /* Thêm hiệu ứng chuyển động */
+      }
+      #actions:hover {
+        color: #eef3f2;
+        transform: scale(1.4); /* Phóng to icon khi trỏ chuột vào */
+      }
+      .cart {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      #cartTable th {
+        color: black; /* Màu chữ mặc định */
+      }
+      tr:nth-child(even) {
+        color: black;
+      }
+    </style>
+  </head>
+  <body style="background: #f68814">
+    <div id="wrapper">
+      <div id="header">
+        <a href="./home.html" class="imglogo"
+          ><img src="./ivy/ivy project/images/logo.png" class="logo" alt="logo"
+        /></a>
+        <div id="menu">
+          <div class="item">
+            <a href="./home.html">Home</a>
+          </div>
+          <div class="item">
+            <a href="./Product.html">Product</a>
+          </div>
+          <div class="item">
+            <a href="">Blog</a>
+          </div>
+          <div class="item">
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <!-- chúc năng giỏ hàng -->
+        <div class="name">
+          <a onclick="toggleCart()">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+        </div>
+      </div>
+      <!-- nội dung giỏ hàng  -->
+      <div id="cart" class="cart">
+        <div class="modal-content">
+          <span class="close" onclick="toggleCart()">&times;</span>
+          <h2>Your Cart</h2>
+          <table id="cartTable">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="cartItems"></tbody>
+          </table>
+          <div id="cartTotal"></div>
+          <button id="clearCartBtn" onclick="clearCart()">Clear Cart</button>
+        </div>
+      </div>
+      <!-- sản phẩm -->
+      <!-- sản phẩm -->
+
+      <div class="listproduct">
+        <div class="product" data-key="1" data-productId="1">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro9.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">KOMATSU</div>
+            <div class="des">CD60R</div>
+            <div class="price">$22000</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(1, 'product name 1', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="2" data-productId="2">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro10.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">Bobacat S570</div>
+            <div class="des">Kubota V2603</div>
+            <div class="price">$20000</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(2, 'product name 2', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="3" data-productId="3">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro11.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">screwdriver</div>
+            <div class="des">Yellow</div>
+            <div class="price">$3</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(3, 'product name 3', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="4" data-productId="4">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro12.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">reflective cone</div>
+            <div class="des">Orange</div>
+            <div class="price">$10</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(4, 'product name 4', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="5" data-productId="5">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro2.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">Zoomlion RT55 Manual</div>
+            <div class="des">Size: 1.48MB</div>
+            <div class="price">$32000</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(5, 'product name 5', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="6" data-productId="6">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro14.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">Worx WX696L</div>
+            <div class="des">20V</div>
+            <div class="price">$103</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(6, 'product name 6', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="7" data-productId="7">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro15.jpg" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">Ridgid 54253 PEX</div>
+            <div class="des">One 12V Battery</div>
+            <div class="price">$170</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(7, 'product name 7', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <div class="product" data-key="8" data-productId="8">
+          <div class="pro_img">
+            <img src="./ivy/ivy project/images/pro17.png" alt="" />
+          </div>
+          <div class="name_pro">
+            <div class="title">Stanley 3-Piece Basic Plier</div>
+            <div class="des">Set 84-114</div>
+            <div class="price">$20</div>
+            <input type="number" class="count" min="1" value="1" />
+            <button
+              class="add"
+              onclick="addToCart(8, 'product name 8', 20, this)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+        <!-- Thêm sản phẩm khác nếu cần -->
+        <!-- Thêm sản phẩm khác nếu cần -->
+      </div>
+      <script>
+        // dong mo gio hang
+        function toggleCart() {
+          const cart = document.getElementById("cart");
+          if (cart.style.display === "block") {
+            cart.style.display = "none";
+          } else {
+            cart.style.display = "block";
+          }
+        }
+
+        function addToCart(productId, productName, productPrice, addButton) {
+          const countInput = addButton.parentNode.querySelector(".count");
+          const quantity = parseInt(countInput.value);
+
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const existingItemIndex = cart.findIndex(
+            (item) => item.productId === productId
+          );
+          if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += quantity;
+          } else {
+            cart.push({
+              productId: productId,
+              name: productName,
+              price: productPrice,
+              quantity: quantity,
+            });
+          }
+          localStorage.setItem("cart", JSON.stringify(cart));
+
+          // Hiển thị lại giỏ hàng
+          displayCart();
+        }
+
+        function clearCart() {
+          localStorage.removeItem("cart");
+          // Hiển thị lại giỏ hàng
+          displayCart();
+        }
+
+        function removeCartItem(productId) {
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+          cart = cart.filter((item) => item.productId !== productId);
+          localStorage.setItem("cart", JSON.stringify(cart));
+
+          // Hiển thị lại giỏ hàng
+          displayCart();
+        }
+
+        function displayCart() {
+          const cartItemsContainer = document.getElementById("cartItems");
+          const cartTotal = document.getElementById("cartTotal");
+          cartItemsContainer.innerHTML = "";
+          cartTotal.innerHTML = "";
+
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          let totalAmount = 0;
+          cart.forEach((item) => {
+            const total = item.price * item.quantity;
+            totalAmount += total;
+            const cartRow = document.createElement("tr");
+            cartRow.innerHTML = `
+            <td>${item.name}</td>
+            <td>$${item.price}</td>
+            <td>${item.quantity}</td>
+            <td>$${total}</td>
+            <td><button class="removeCartItem" onclick="removeCartItem(${item.productId})">Remove</button></td>
+        `;
+            cartItemsContainer.appendChild(cartRow);
+          });
+
+          const totalRow = document.createElement("tr");
+          totalRow.innerHTML = `
+        <td colspan="3"><strong>Total:</strong></td>
+        <td><strong>$${totalAmount}</strong></td>
+        <td></td>
+    `;
+          cartItemsContainer.appendChild(totalRow);
+        }
+      </script>
+
+      <footer>
+        <div class="container">
+          <div class="contact">
+            <h3>Connect</h3>
+            <p>Address: 394, My Dinh Street, Nam Tu Liem, Hanoi</p>
+            <p>Email: cb@gmail.com</p>
+            <p>Phone: 0123456789</p>
+          </div>
+          <div class="social">
+            <h3>Social</h3>
+            <ul>
+              <li>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+              </li>
+            </ul>
+          </div>
+          <div class="reviews">
+            <h3>Evaluate</h3>
+            <p>"Really bad product not worth buying "</p>
+            <p class="customer">- John dog</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
